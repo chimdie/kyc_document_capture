@@ -1323,7 +1323,7 @@ class SmartCameraWeb extends HTMLElement {
       this.activeScreen.hidden = true;
     }
 
-    element.hidden = false; // eslint-disable-line no-param-reassign
+    element.hidden = false;
     this.activeScreen = element;
   }
 
@@ -1487,22 +1487,29 @@ class SmartCameraWeb extends HTMLElement {
       });
     }
 
-    if (this.takeDocumentPhotoButton)
+    if (this.takeDocumentPhotoButton) {
       this.takeDocumentPhotoButton.addEventListener("click", () =>
         this._startIDCamera(),
       );
-    if (this.takeBackOfDocumentPhotoButton)
+    }
+
+    if (this.takeBackOfDocumentPhotoButton) {
       this.takeBackOfDocumentPhotoButton.addEventListener("click", () =>
         this._startIDCamera(),
       );
-    if (this.uploadDocumentPhotoButton)
+    }
+
+    if (this.uploadDocumentPhotoButton) {
       this.uploadDocumentPhotoButton.addEventListener("change", (e) =>
         this._uploadDocument(e),
       );
-    if (this.uploadBackOfDocumentPhotoButton)
+    }
+
+    if (this.uploadBackOfDocumentPhotoButton) {
       this.uploadBackOfDocumentPhotoButton.addEventListener("change", (e) =>
         this._uploadDocument(e),
       );
+    }
 
     this.backToSelfie = this.shadowRoot.querySelector("#back-button-selfie");
     this.backToIdEntryButton = this.shadowRoot.querySelector(
@@ -1560,11 +1567,11 @@ class SmartCameraWeb extends HTMLElement {
       });
     }
 
-    if (this.selectBackOfIDImage) {
-      this.selectBackOfIDImage.addEventListener("click", () => {
-        this._selectIDImage(true);
-      });
-    }
+    // if (this.selectBackOfIDImage) {
+    //   this.selectBackOfIDImage.addEventListener("click", () => {
+    //     this._selectIDImage(true);
+    //   });
+    // }
 
     if (this.selectBackOfIDImage) {
       this.selectBackOfIDImage.addEventListener("click", () => {
@@ -2010,8 +2017,6 @@ class SmartCameraWeb extends HTMLElement {
   }
 
   _captureReferencePhoto() {
-    if (!this._referenceImage) return;
-
     const canvas = document.createElement("canvas");
     canvas.width = 480;
     canvas.height = 480;
@@ -2110,6 +2115,7 @@ class SmartCameraWeb extends HTMLElement {
   _selectIDImage(backOfIDCaptured = false) {
     if (!this.captureBackOfID || backOfIDCaptured) {
       this._publishSelectedImages();
+      return;
     }
 
     if (this.backOfIdEntryScreen) {

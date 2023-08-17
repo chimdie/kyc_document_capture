@@ -650,7 +650,7 @@ function scwTemplateString(this: SmartCameraWeb) {
         this.hideAttribution
           ? ""
           : `
-        <powered-by-smile-id></powered-by-smile-id>
+        <powered-by></powered-by>
       `
       }
     </div>
@@ -714,7 +714,7 @@ function scwTemplateString(this: SmartCameraWeb) {
         this.hideAttribution
           ? ""
           : `
-        <powered-by-smile-id></powered-by-smile-id>
+        <powered-by></powered-by>
       `
       }
     </div>
@@ -766,7 +766,7 @@ function scwTemplateString(this: SmartCameraWeb) {
       this.hideAttribution
         ? ""
         : `
-      <powered-by-smile-id></powered-by-smile-id>
+      <powered-by></powered-by>
     `
     }
   </div>
@@ -886,7 +886,7 @@ function scwTemplateString(this: SmartCameraWeb) {
       this.hideAttribution
         ? ""
         : `
-      <powered-by-smile-id></powered-by-smile-id>
+      <powered-by></powered-by>
     `
     }
   </div>
@@ -947,7 +947,7 @@ function scwTemplateString(this: SmartCameraWeb) {
         this.hideAttribution
           ? ""
           : `
-        <powered-by-smile-id></powered-by-smile-id>
+        <powered-by></powered-by>
       `
       }
     </div>
@@ -1001,7 +1001,7 @@ function scwTemplateString(this: SmartCameraWeb) {
         this.hideAttribution
           ? ""
           : `
-        <powered-by-smile-id></powered-by-smile-id>
+        <powered-by></powered-by>
       `
       }
     </div>
@@ -1080,7 +1080,7 @@ function scwTemplateString(this: SmartCameraWeb) {
       this.hideAttribution
         ? ""
         : `
-      <powered-by-smile-id></powered-by-smile-id>
+      <powered-by></powered-by>
     `
     }
   </div>
@@ -1141,7 +1141,7 @@ function scwTemplateString(this: SmartCameraWeb) {
         this.hideAttribution
           ? ""
           : `
-        <powered-by-smile-id></powered-by-smile-id>
+        <powered-by></powered-by>
       `
       }
     </div>
@@ -1195,7 +1195,7 @@ function scwTemplateString(this: SmartCameraWeb) {
         this.hideAttribution
           ? ""
           : `
-        <powered-by-smile-id></powered-by-smile-id>
+        <powered-by></powered-by>
       `
       }
     </div>
@@ -1209,7 +1209,7 @@ function scwTemplateString(this: SmartCameraWeb) {
         this.hideAttribution
           ? ""
           : `
-        <powered-by-smile-id></powered-by-smile-id>
+        <powered-by></powered-by>
       `
       }
     </div>
@@ -1217,7 +1217,7 @@ function scwTemplateString(this: SmartCameraWeb) {
   `;
 }
 
-class PoweredBySmileId extends HTMLElement {
+class PoweredBy extends HTMLElement {
   constructor() {
     super();
     const template = document.createElement("template");
@@ -1251,7 +1251,7 @@ class PoweredBySmileId extends HTMLElement {
   }
 }
 
-window.customElements.define("powered-by-smile-id", PoweredBySmileId);
+window.customElements.define("powered-by", PoweredBy);
 class SmartCameraWeb extends HTMLElement {
   scwTemplateString: () => string;
   render: () => string;

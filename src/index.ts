@@ -1391,7 +1391,7 @@ class SmartCameraWeb extends HTMLElement {
   }
 
   setUpEventListeners() {
-    if (!this.shadowRoot || !this.idEntryScreen || !this.backOfIdEntryScreen) {
+    if (!this.shadowRoot) {
       throw new Error("Cannot use element before initialization");
     }
     this.errorMessage = this.shadowRoot.querySelector("#error");

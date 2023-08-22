@@ -1,3 +1,7 @@
+/// <reference path="types/index.d.ts"/>
+
+import { ImagesComputedEventDetails } from "./types";
+
 const VERSION = "1.0.0-beta.20";
 const DEFAULT_NO_OF_LIVENESS_FRAMES = 8;
 const PORTRAIT_ID_PREVIEW_WIDTH = 396;
@@ -647,7 +651,7 @@ function scwTemplateString(this: SmartCameraWeb) {
       </button>
 
       ${
-        this.hideAttribution
+        this.showAttribution
           ? ""
           : `
         <powered-by></powered-by>
@@ -711,7 +715,7 @@ function scwTemplateString(this: SmartCameraWeb) {
       </button>
 
       ${
-        this.hideAttribution
+        this.showAttribution
           ? ""
           : `
         <powered-by></powered-by>
@@ -763,7 +767,7 @@ function scwTemplateString(this: SmartCameraWeb) {
       </button>
     </div>
     ${
-      this.hideAttribution
+      this.showAttribution
         ? ""
         : `
       <powered-by></powered-by>
@@ -883,7 +887,7 @@ function scwTemplateString(this: SmartCameraWeb) {
       }
     </div>
     ${
-      this.hideAttribution
+      this.showAttribution
         ? ""
         : `
       <powered-by></powered-by>
@@ -944,7 +948,7 @@ function scwTemplateString(this: SmartCameraWeb) {
       </div>
 
       ${
-        this.hideAttribution
+        this.showAttribution
           ? ""
           : `
         <powered-by></powered-by>
@@ -998,7 +1002,7 @@ function scwTemplateString(this: SmartCameraWeb) {
       </div>
 
       ${
-        this.hideAttribution
+        this.showAttribution
           ? ""
           : `
         <powered-by></powered-by>
@@ -1077,7 +1081,7 @@ function scwTemplateString(this: SmartCameraWeb) {
       }
     </div>
     ${
-      this.hideAttribution
+      this.showAttribution
         ? ""
         : `
       <powered-by></powered-by>
@@ -1138,7 +1142,7 @@ function scwTemplateString(this: SmartCameraWeb) {
       </div>
 
       ${
-        this.hideAttribution
+        this.showAttribution
           ? ""
           : `
         <powered-by></powered-by>
@@ -1192,7 +1196,7 @@ function scwTemplateString(this: SmartCameraWeb) {
       </div>
 
       ${
-        this.hideAttribution
+        this.showAttribution
           ? ""
           : `
         <powered-by></powered-by>
@@ -1206,7 +1210,7 @@ function scwTemplateString(this: SmartCameraWeb) {
       <h1>Thank you</h1>
 
       ${
-        this.hideAttribution
+        this.showAttribution
           ? ""
           : `
         <powered-by></powered-by>
@@ -1252,7 +1256,7 @@ class PoweredBy extends HTMLElement {
 }
 
 window.customElements.define("powered-by", PoweredBy);
-class SmartCameraWeb extends HTMLElement {
+export class SmartCameraWeb extends HTMLElement {
   scwTemplateString: () => string;
   render: () => string;
   activeScreen: HTMLElement | null = null;
@@ -1296,13 +1300,7 @@ class SmartCameraWeb extends HTMLElement {
   private _videoStreamTimeout: number | null = null;
   private _imageCaptureInterval: number | null = null;
   private _drawingInterval: number | null = null;
-  private _data: {
-    images: Array<unknown>;
-    partner_params: {
-      libraryVersion: string;
-      permissionGranted: boolean;
-    };
-  } | null = null;
+  private _data: ImagesComputedEventDetails | null = null;
   private _rawImages: Array<string> | null = null;
   private _stream: MediaStream | null = null;
   private _IDStream: MediaStream | null = null;
@@ -2186,8 +2184,8 @@ class SmartCameraWeb extends HTMLElement {
     return this.getAttribute("capture-id") === "back" || false;
   }
 
-  get hideAttribution() {
-    return this.hasAttribute("hide-attribution");
+  get showAttribution() {
+    return !this.hasAttribute("show-attribution");
   }
 
   get showNavigation() {

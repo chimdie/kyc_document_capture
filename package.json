@@ -2,6 +2,7 @@
   "name": "document_capture",
   "version": "1.0.0",
   "main": "dist/index.js",
+  "types": "src/types/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -9,7 +10,5 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "dependencies": {
-    "@smile_identity/smart-camera-web": "^1.0.0-beta.20"
-  }
+  "dependencies": {}
 }

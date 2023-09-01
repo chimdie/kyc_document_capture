@@ -1,5 +1,5 @@
 {
-  "name": "document_capture",
+  "name": "kyc_document_capture",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "src/types/index.d.ts",
@@ -8,7 +8,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": "",
   "dependencies": {}
 }

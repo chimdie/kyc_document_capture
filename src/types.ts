@@ -5,7 +5,9 @@ export type SmartCameraWebProps = {
   supportBothCaptureModes: boolean;
   documentCaptureModes: boolean;
   captureBackOfID: boolean;
+  captureID: boolean | "back";
   hideBackToHost: boolean;
+  onlyDocument: boolean;
 };
 export type ImagesComputedEventDetails = {
   partner_params: {

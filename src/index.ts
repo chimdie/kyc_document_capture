@@ -1359,6 +1359,10 @@ export class SmartCameraWeb extends HTMLElement {
 
   static get observedAttributes() {
     return [
+      "only-document",
+      "show-thanks",
+      "show-attribution",
+
       "document-capture-modes",
       "document-type",
       "hide-back-to-host",
@@ -1371,7 +1375,10 @@ export class SmartCameraWeb extends HTMLElement {
       | "document-capture-modes"
       | "document-type"
       | "hide-back-to-host"
-      | "show-navigation",
+      | "show-navigation"
+      | "only-document"
+      | "show-thanks"
+      | "show-attribution",
   ) {
     if (!this.shadowRoot) return;
 
@@ -1380,6 +1387,9 @@ export class SmartCameraWeb extends HTMLElement {
       case "document-type":
       case "hide-back-to-host":
       case "show-navigation":
+      case "only-document":
+      case "show-thanks":
+      case "show-attribution":
         this.shadowRoot.innerHTML = this.render();
         this.setUpEventListeners();
         break;
@@ -1486,15 +1496,15 @@ export class SmartCameraWeb extends HTMLElement {
     }
 
     if (this.takeDocumentPhotoButton) {
-      this.takeDocumentPhotoButton.addEventListener("click", () =>
-        this._startIDCamera(),
-      );
+      this.takeDocumentPhotoButton.addEventListener("click", () => {
+        this._startIDCamera();
+      });
     }
 
     if (this.takeBackOfDocumentPhotoButton) {
-      this.takeBackOfDocumentPhotoButton.addEventListener("click", () =>
-        this._startIDCamera(),
-      );
+      this.takeBackOfDocumentPhotoButton.addEventListener("click", () => {
+        this._startIDCamera();
+      });
     }
 
     if (this.uploadDocumentPhotoButton) {
@@ -1669,7 +1679,9 @@ export class SmartCameraWeb extends HTMLElement {
       this._data.partner_params.permissionGranted = true;
     }
 
-    if (this.cameraScreen) {
+    if (this.onlyDocument && this.idEntryScreen) {
+      this.setActiveScreen(this.idEntryScreen);
+    } else if (this.cameraScreen) {
       this.setActiveScreen(this.cameraScreen);
     }
 
@@ -1828,7 +1840,6 @@ export class SmartCameraWeb extends HTMLElement {
     });
 
     this._stopIDVideoStream();
-
     if (this.activeScreen === this.IDCameraScreen && this.IDReviewScreen) {
       this.setActiveScreen(this.IDReviewScreen);
     } else if (this.backOfIDReviewScreen) {
@@ -2077,7 +2088,9 @@ export class SmartCameraWeb extends HTMLElement {
         audio: false,
         video: {
           facingMode: "environment",
-          width: { min: 1280 },
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          aspectRatio: 1,
           // NOTE: Special case for multi-camera Samsung devices (learnt from Acuant)
           // "We found out that some triple camera Samsung devices (S10, S20, Note 20, etc) capture images blurry at edges.
           // Zooming to 2X, matching the telephoto lens, doesn't solve it completely but mitigates it."
@@ -2125,9 +2138,11 @@ export class SmartCameraWeb extends HTMLElement {
     this.dispatchEvent(
       new CustomEvent("imagesComputed", { detail: this._data }),
     );
-    if (this.thanksScreen) {
+    if (this.thanksScreen && this.showThanks) {
       this.setActiveScreen(this.thanksScreen);
     }
+
+    this.dispatchEvent(new CustomEvent("captureComplete"));
   }
 
   _exitSmartCamera() {
@@ -2176,12 +2191,20 @@ export class SmartCameraWeb extends HTMLElement {
     this._data?.images.pop();
   }
 
+  get showThanks() {
+    return this.hasAttribute("show-thanks");
+  }
+
+  get onlyDocument() {
+    return this.hasAttribute("only-document");
+  }
+
   get captureID() {
     return this.hasAttribute("capture-id");
   }
 
   get captureBackOfID() {
-    return this.getAttribute("capture-id") === "back" || false;
+    return this.getAttribute("capture-id") === "back";
   }
 
   get showAttribution() {
@@ -2200,14 +2223,17 @@ export class SmartCameraWeb extends HTMLElement {
     return this.getAttribute("document-type") === "GREEN_BOOK";
   }
 
-  get documentCaptureModes() {
-    /*
-      NOTE: options are `camera`, `upload`, and a comma-separated combination
-      of both.
-
-      defaults to `camera`;
-    */
-    return this.getAttribute("document-capture-modes") || "camera";
+  /**
+   * NOTE: options are `camera`, `upload`, and a comma-separated combination
+   * of both.
+   *
+   * defaults to `camera`;
+   */
+  get documentCaptureModes(): DocumentCapture {
+    return (
+      (this.getAttribute("document-capture-modes") as DocumentCapture) ||
+      "camera"
+    );
   }
 
   get supportBothCaptureModes() {
@@ -2220,4 +2246,5 @@ export class SmartCameraWeb extends HTMLElement {
   }
 }
 
+type DocumentCapture = "camera" | "upload";
 window.customElements.define("smart-camera-web", SmartCameraWeb);

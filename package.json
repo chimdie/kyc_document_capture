@@ -11,7 +11,7 @@
   "author": "",
   "license": "MIT",
   "description": "",
-  "dependencies": {
+  "devDependencies": {
     "copyfiles": "^2.4.1"
   }
 }

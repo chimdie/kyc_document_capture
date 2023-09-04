@@ -1,5 +1,3 @@
-import "./App.css";
-import type {} from "kyc_document_capture";
 import "kyc_document_capture";
 
 function App() {

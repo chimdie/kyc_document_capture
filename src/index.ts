@@ -1,6 +1,4 @@
-/// <reference path="types/index.d.ts"/>
-
-import { ImagesComputedEventDetails } from "./types";
+/// <reference path="index.d.ts"/>
 
 const VERSION = "1.0.0-beta.20";
 const DEFAULT_NO_OF_LIVENESS_FRAMES = 8;
@@ -2142,15 +2140,15 @@ export class SmartCameraWeb extends HTMLElement {
       this.setActiveScreen(this.thanksScreen);
     }
 
-    this.dispatchEvent(new CustomEvent("captureComplete"));
+    this.dispatchEvent(new CustomEvent("captureComplete", { detail: null }));
   }
 
   _exitSmartCamera() {
-    this.dispatchEvent(new CustomEvent("close", { detail: {} }));
+    this.dispatchEvent(new CustomEvent("close", { detail: null }));
   }
 
   _backAndExit() {
-    this.dispatchEvent(new CustomEvent("backExit", { detail: {} }));
+    this.dispatchEvent(new CustomEvent("backExit", { detail: null }));
   }
 
   async _reStartImageCapture() {

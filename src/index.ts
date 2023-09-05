@@ -26,13 +26,13 @@ function isSamsungMultiCameraDevice() {
 
 function getLivenessFramesIndices(
   totalNoOfFrames: number,
-  numberOfFramesRequired = DEFAULT_NO_OF_LIVENESS_FRAMES,
+  numberOfFramesRequired = DEFAULT_NO_OF_LIVENESS_FRAMES
 ) {
   const selectedFrames = [];
 
   if (totalNoOfFrames < numberOfFramesRequired) {
     throw new Error(
-      "SmartCameraWeb: Minimum required no of frames is ",
+      "SmartCameraWeb: Minimum required no of frames is "
       // numberOfFramesRequired,
     );
   }
@@ -77,7 +77,7 @@ class SmartFileUpload {
     const units = ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
     const exponent = Math.min(
       Math.floor(Math.log(numberOfBytes) / Math.log(1024)),
-      units.length - 1,
+      units.length - 1
     );
     const approx = numberOfBytes / 1024 ** exponent;
     const output =
@@ -95,7 +95,7 @@ class SmartFileUpload {
       reader.onload = (e) => {
         if (!e.target) {
           return reject(
-            new Error("An error occured. Please check file element"),
+            new Error("An error occured. Please check file element")
           );
         }
 
@@ -104,8 +104,8 @@ class SmartFileUpload {
       reader.onerror = () => {
         reject(
           new Error(
-            "An error occurred reading the file. Please check the file, and try again",
-          ),
+            "An error occurred reading the file. Please check the file, and try again"
+          )
         );
       };
       reader.readAsDataURL(file);
@@ -121,7 +121,7 @@ class SmartFileUpload {
 
     if (!SmartFileUpload.supportedTypes.includes(file.type)) {
       throw new Error(
-        "Unsupported file format. Please ensure that you are providing a JPG or PNG image",
+        "Unsupported file format. Please ensure that you are providing a JPG or PNG image"
       );
     }
 
@@ -130,8 +130,8 @@ class SmartFileUpload {
         `${
           file.name
         } is too large. Please ensure that the file is less than ${SmartFileUpload.getHumanSize(
-          SmartFileUpload.memoryLimit,
-        )}.`,
+          SmartFileUpload.memoryLimit
+        )}.`
       );
     }
 
@@ -395,7 +395,7 @@ function scwTemplateString(this: SmartCameraWeb) {
     }
   
     .id-video-container.portrait video {
-      width: calc(213px + 0.9rem);
+      width: 100%;
       height: 100%;
       position: absolute;
       top: 239px;
@@ -521,7 +521,7 @@ function scwTemplateString(this: SmartCameraWeb) {
     #back-of-id-camera-screen .id-video-container.portrait .actions,
     #id-camera-screen .id-video-container.portrait .actions {
       top: 145%;
-      width: calc(200px * 1.4);
+      width: 100%;
     }
 
     #back-of-id-camera-screen .section.portrait, #id-camera-screen .section.portrait {
@@ -1248,7 +1248,7 @@ class PoweredBy extends HTMLElement {
     `;
 
     this.attachShadow({ mode: "open" }).appendChild(
-      template.content.cloneNode(true),
+      template.content.cloneNode(true)
     );
   }
 }
@@ -1376,7 +1376,7 @@ export class SmartCameraWeb extends HTMLElement {
       | "show-navigation"
       | "only-document"
       | "show-thanks"
-      | "show-attribution",
+      | "show-attribution"
   ) {
     if (!this.shadowRoot) return;
 
@@ -1410,47 +1410,47 @@ export class SmartCameraWeb extends HTMLElement {
     this.IDCameraScreen = this.shadowRoot.querySelector("#id-camera-screen");
     this.IDReviewScreen = this.shadowRoot.querySelector("#id-review-screen");
     this.backOfIdEntryScreen = this.shadowRoot.querySelector(
-      "#back-of-id-entry-screen",
+      "#back-of-id-entry-screen"
     );
     this.backOfIDCameraScreen = this.shadowRoot.querySelector(
-      "#back-of-id-camera-screen",
+      "#back-of-id-camera-screen"
     );
     this.backOfIDReviewScreen = this.shadowRoot.querySelector(
-      "#back-of-id-review-screen",
+      "#back-of-id-review-screen"
     );
     this.thanksScreen = this.shadowRoot.querySelector("#thanks-screen");
 
     this.videoContainer = this.shadowRoot.querySelector(
-      ".video-container > .video",
+      ".video-container > .video"
     );
     this.smileCTA = this.shadowRoot.querySelector("#smile-cta");
     this.imageOutline = this.shadowRoot.querySelector("#image-outline path");
     this.startImageCapture = this.shadowRoot.querySelector(
-      "#start-image-capture",
+      "#start-image-capture"
     );
     this.captureIDImage = this.shadowRoot.querySelector("#capture-id-image");
     this.captureBackOfIDImage = this.shadowRoot.querySelector(
-      "#capture-back-of-id-image",
+      "#capture-back-of-id-image"
     );
     this.reviewImage = this.shadowRoot.querySelector("#review-image");
     this.IDReviewImage = this.shadowRoot.querySelector("#id-review-image");
     this.backOfIDReviewImage = this.shadowRoot.querySelector(
-      "#back-of-id-review-image",
+      "#back-of-id-review-image"
     );
 
     this.reStartImageCapture = this.shadowRoot.querySelector(
-      "#restart-image-capture",
+      "#restart-image-capture"
     );
     this.reCaptureIDImage = this.shadowRoot.querySelector(
-      "#re-capture-id-image",
+      "#re-capture-id-image"
     );
     this.reCaptureBackOfIDImage = this.shadowRoot.querySelector(
-      "#re-capture-back-of-id-image",
+      "#re-capture-back-of-id-image"
     );
     this.selectSelfie = this.shadowRoot.querySelector("#select-selfie");
     this.selectIDImage = this.shadowRoot.querySelector("#select-id-image");
     this.selectBackOfIDImage = this.shadowRoot.querySelector(
-      "#select-back-of-id-image",
+      "#select-back-of-id-image"
     );
 
     if (!this.shadowRoot || !this.idEntryScreen || !this.backOfIdEntryScreen) {
@@ -1466,7 +1466,7 @@ export class SmartCameraWeb extends HTMLElement {
       this.backOfIdEntryScreen.querySelector("#upload-photo");
 
     const requestCameraAccessElt = this.shadowRoot.querySelector(
-      "#request-camera-access",
+      "#request-camera-access"
     );
 
     if (!requestCameraAccessElt) {
@@ -1507,25 +1507,25 @@ export class SmartCameraWeb extends HTMLElement {
 
     if (this.uploadDocumentPhotoButton) {
       this.uploadDocumentPhotoButton.addEventListener("change", (e) =>
-        this._uploadDocument(e),
+        this._uploadDocument(e)
       );
     }
 
     if (this.uploadBackOfDocumentPhotoButton) {
       this.uploadBackOfDocumentPhotoButton.addEventListener("change", (e) =>
-        this._uploadDocument(e),
+        this._uploadDocument(e)
       );
     }
 
     this.backToSelfie = this.shadowRoot.querySelector("#back-button-selfie");
     this.backToIdEntryButton = this.shadowRoot.querySelector(
-      "#back-button-id-entry",
+      "#back-button-id-entry"
     );
     this.backToBackIdEntryButton = this.shadowRoot.querySelector(
-      "#back-button-back-id-entry",
+      "#back-button-back-id-entry"
     );
     this.backToIdImageButton = this.shadowRoot.querySelector(
-      "#back-button-id-image",
+      "#back-button-id-image"
     );
 
     if (this.backToSelfie) {
@@ -1667,7 +1667,7 @@ export class SmartCameraWeb extends HTMLElement {
       video.srcObject = stream;
     } else {
       (video as HTMLVideoElement).src = window.URL.createObjectURL(
-        stream as unknown as MediaSource,
+        stream as unknown as MediaSource
       );
     }
 
@@ -1717,7 +1717,7 @@ export class SmartCameraWeb extends HTMLElement {
       video.srcObject = stream;
     } else {
       (video as HTMLVideoElement).src = window.URL.createObjectURL(
-        stream as unknown as MediaSource,
+        stream as unknown as MediaSource
       );
     }
 
@@ -1880,7 +1880,7 @@ export class SmartCameraWeb extends HTMLElement {
       0,
       canvas.width,
 
-      canvas.height,
+      canvas.height
     );
 
     return context;
@@ -1982,7 +1982,7 @@ export class SmartCameraWeb extends HTMLElement {
         0,
         0,
         cropWidth,
-        cropHeight,
+        cropHeight
       );
 
       return croppedCanvas.toDataURL("image/jpeg");
@@ -2009,7 +2009,7 @@ export class SmartCameraWeb extends HTMLElement {
         0,
         0,
         canvas.width,
-        canvas.height,
+        canvas.height
       );
       return canvas.toDataURL("image/jpeg");
     }
@@ -2026,7 +2026,7 @@ export class SmartCameraWeb extends HTMLElement {
     contextWithImage.putImageData(
       contextWithImage.getImageData(0, 0, canvas.width, canvas.height),
       0,
-      0,
+      0
     );
     this._rawImages?.push(canvas.toDataURL("image/jpeg"));
   }
@@ -2074,7 +2074,7 @@ export class SmartCameraWeb extends HTMLElement {
         livenessFramesIndices.map((imageIndex) => ({
           image: raw[imageIndex].split(",")[1],
           image_type_id: 6,
-        })),
+        }))
       );
     }
 
@@ -2142,7 +2142,7 @@ export class SmartCameraWeb extends HTMLElement {
 
   _publishSelectedImages() {
     this.dispatchEvent(
-      new CustomEvent("imagesComputed", { detail: this._data }),
+      new CustomEvent("imagesComputed", { detail: this._data })
     );
     if (this.thanksScreen && this.showThanks) {
       this.setActiveScreen(this.thanksScreen);

@@ -2113,9 +2113,11 @@ export class SmartCameraWeb extends HTMLElement {
   _selectSelfie() {
     if (!this.captureID) {
       this._publishSelectedImages();
-    }
 
-    if (this.idEntryScreen) {
+      if (this.thanksScreen && this.showThanks) {
+        this.setActiveScreen(this.thanksScreen);
+      }
+    } else if (this.idEntryScreen) {
       this.setActiveScreen(this.idEntryScreen);
     }
   }

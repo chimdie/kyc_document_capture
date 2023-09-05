@@ -1685,7 +1685,13 @@ export class SmartCameraWeb extends HTMLElement {
 
     this._stream = stream;
     this._video = video;
-    stream.getVideoTracks().forEach((track) => track.stop());
+
+    // TODO: update this implementation
+    // track should stop when id image is captured
+    // in @_stopIdVideoStream
+    if (this.activeScreen !== this.cameraScreen) {
+      stream.getTracks().forEach((track) => track.stop());
+    }
   }
 
   handleIDStream(stream: MediaStream) {
@@ -1737,6 +1743,7 @@ export class SmartCameraWeb extends HTMLElement {
   }
 
   handleError(e: Error) {
+    console.error(e);
     if (!this.errorMessage) {
       throw new Error("Error tag not available");
     }
@@ -2113,9 +2120,11 @@ export class SmartCameraWeb extends HTMLElement {
   _selectSelfie() {
     if (!this.captureID) {
       this._publishSelectedImages();
-    }
 
-    if (this.idEntryScreen) {
+      if (this.thanksScreen && this.showThanks) {
+        this.setActiveScreen(this.thanksScreen);
+      }
+    } else if (this.idEntryScreen) {
       this.setActiveScreen(this.idEntryScreen);
     }
   }
